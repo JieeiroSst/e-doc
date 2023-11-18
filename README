@@ -1,0 +1,107 @@
+1. Match query
+
+```
+GET customers/_search
+{
+  "query": {
+    "match": {
+      "name": "CAO HOANG MAI PHUONG"
+    }
+  }
+}
+```
+
+2. Match-phrase query
+
+- search chính xác
+
+```
+GET customers/_search
+{
+  "query": {
+    "match_phrase": {
+      "name": "CAO HOANG MAI PHUONG"
+    }
+  }
+}
+```
+
+3. Multi-match query
+
+```
+GET customers/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "CAO HOANG MAI PHUONG",
+      "fields": ["name", "depscription"],
+      "type": "phrase"
+    }
+  }
+}
+```
+
+4. Term query
+
+```
+GET customers/_search
+{
+  "query": {
+    "term": {
+      "customer_id": 1
+    }
+  }
+}
+```
+
+5. Terms query
+- search với nhiều query một lúc. Kết quả truy vẫn lấy theo kiểu OR 
+```
+GET customers/_search
+{
+  "query": {
+    "terms": {
+      "customer_id": [1,2]
+    }
+  }
+}
+```
+
+6. Range query
+
+```
+GET customers/_search
+{
+  "query": {
+    "range": {
+      "birthday": {
+        "gte": "1999/07/03",
+        "lte": "1999/06/20"
+      }
+    }
+  }
+}
+```
+
+7. Bool query
+- query cho phép kết hợp nhiều query khác nhau cùng một lúc
+```
+GET customers/_search
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_phrase": {
+            "name": "CAO HOANG MAI PHUONG"
+          },
+          "term": {
+            "customer_id": 1
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
